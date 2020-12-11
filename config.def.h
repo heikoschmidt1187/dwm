@@ -46,9 +46,20 @@ static const Layout layouts[] = {
 	{ "[M]",      monocle },
 };
 
-/* function keys */
+/* display brightness */
 static const char *inclight[] = { "xbacklight", "-inc", "10", NULL };
 static const char *declight[] = { "xbacklight", "-dec", "10", NULL };
+
+/* sound control */
+static const char *mutesnd[] = { "pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL };
+static const char *mutemic[] = { "pactl", "set-source-mute", "@DEFAULT_SINK@", "toggle", NULL };
+static const char *incvolume[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+10%", NULL };
+static const char *decvolume[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-10%", NULL };
+
+/* playback control */
+static const char *playpausetrack[] = { "playerctl", "play-pause", NULL };
+static const char *nexttrack[] = { "playerctl", "next", NULL };
+static const char *prevtrack[] = { "playerctl", "previous", NULL };
 
 /* key definitions */
 #define MODKEY Mod1Mask
@@ -104,6 +115,13 @@ static Key keys[] = {
 	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} }, 
 	{ 0,				XF86XK_MonBrightnessUp,		spawn,	{.v = inclight} },
 	{ 0,				XF86XK_MonBrightnessDown,	spawn,	{.v = declight} },
+	{ 0,				XF86XK_AudioRaiseVolume,	spawn,	{.v = incvolume} },
+	{ 0,				XF86XK_AudioLowerVolume,	spawn,	{.v = decvolume} },
+	{ 0,				XF86XK_AudioMute,		spawn,	{.v = mutesnd} },
+	{ 0,				XF86XK_AudioMicMute,		spawn,	{.v = mutemic} },
+	{ 0,				XF86XK_AudioPlay,		spawn,	{.v = playpausetrack} },
+	{ 0,				XF86XK_AudioNext,		spawn,	{.v = nexttrack} },
+	{ 0,				XF86XK_AudioPrev,		spawn,	{.v = prevtrack} },
 };
 
 /* button definitions */
